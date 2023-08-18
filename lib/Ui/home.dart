@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MovieListView extends StatelessWidget {
   MovieListView({super.key});
+  //final List<Movie> movieList = Movie.getMovies();
 
   final List movies = [
     "Spider-Man: Across the Spider-Verse (2023)",
