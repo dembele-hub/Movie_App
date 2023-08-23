@@ -6,7 +6,7 @@ class Movie {
             "2023",
             "Movie",
             "PG-13",
-            "18 Dec 2009",
+            "18 Dec 2022",
             "162 min",
             "Action, Adventure, Fantasy",
             "James Cameron",
@@ -420,7 +420,7 @@ class Movie {
             "Series",
             "TV-MA",
             "30 Sep 2016",
-            "55 min",
+            "206 min",
             "Action, Crime, Drama",
             "N/A",
             "Cheo Hodari Coker",
@@ -466,8 +466,8 @@ class Movie {
   String response;
   List <String> images;
 
-  Movie(this.title, this.year, this.type, this.released, this.runtime,
-      this.genre, this.director, this.writer, this.actors, this.plot,
+  Movie(this.title, this.year, this.type, this.rated, this.released,
+      this.runtime, this.director, this.writer, this.actors, this.plot,
       this.language, this.country, this.awards, this.poster, this.metaScore,
-      this.imdbRating, this.rated, this.response, this.images);
+      this.imdbRating, this.genre, this.response, this.images);
 }
