@@ -94,14 +94,14 @@ class MovieListView extends StatelessWidget {
     );
   }
 
-  Widget movieImage(String ImageUrl) {
+  Widget movieImage(String imageUrl) {
     return Container(
       width: 100,
       height: 100,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-              image: NetworkImage(ImageUrl), fit: BoxFit.cover)),
+              image: NetworkImage(imageUrl), fit: BoxFit.cover)),
     );
   }
 }
@@ -116,27 +116,46 @@ class MovieListViewDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Movies"),
+        title: const Text("Movies Details"),
         centerTitle: true,
         backgroundColor: Colors.redAccent.shade400,
       ),
     body: ListView(
-      children: const [
-        
+      children: [
 
       ],
     ),
     );
   }
 }
-class MovieDetailThumbnail extends StatelessWidget {
+class MovieDetailsThumbnail extends StatelessWidget {
   final String thumbnail;
-  const MovieDetailThumbnail({Key? key, required this.thumbnail}) : super(key: key);
+  const MovieDetailsThumbnail({Key? key,  required this.thumbnail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
-      children: [],
+    return  Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 190,
+              width: 114,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                 image: NetworkImage(thumbnail),
+                  fit: BoxFit.cover,
+                )
+
+              ),
+
+            )
+          ],
+        ),
+         const Icon(Icons.play_circle_filled_outlined, size: 100, color: Colors.white,)
+      ],
     );
   }
 }
