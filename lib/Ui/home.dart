@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'model/movie.dart';
 
 class MovieListView extends StatelessWidget {
@@ -17,16 +16,20 @@ class MovieListView extends StatelessWidget {
       ),
       backgroundColor: Colors.red.shade900,
       body: ListView.builder(
-          itemCount: movieList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Stack(children: [
+        itemCount: movieList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Stack(
+            children: [
               Positioned(child: movieCard(movieList[index], context)),
               Positioned(
-                  top: 10.0,
-                  bottom: 10.0,
-                  child: movieImage(movieList[index].images[2])),
-            ]);
-          }),
+                top: 10.0,
+                bottom: 10.0,
+                child: movieImage(movieList[index].images[2]),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -37,59 +40,81 @@ class MovieListView extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 120.0,
         child: Card(
-            color: Colors.black26,
+          color: Colors.black26,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 54.0),
             child: Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 54.0),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              movie.title,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17.0,
-                                  color: Colors.white),
-                            ),
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          movie.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.0,
+                            color: Colors.white,
                           ),
-                          Text(movie.type, style: const TextStyle(
-                              fontSize: 15,
-                             color: Colors.grey),)
-                        ]),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          "Released: ${movie.released}", style: const TextStyle(
-                            fontSize: 15, fontStyle: FontStyle.italic,
-                            color: Colors.grey),
                         ),
-                        Text(movie.runtime, style: const TextStyle(
-                            fontSize: 15, fontStyle: FontStyle.italic,
-                            color: Colors.grey)),
-                        Text(movie.rated, style: const TextStyle(
-                            fontSize: 15, fontStyle: FontStyle.italic,
-                            color: Colors.grey)),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                      Text(
+                        movie.type,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Released: ${movie.released}",
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Text(
+                        movie.runtime,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Text(
+                        movie.rated,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            )),
+            ),
+          ),
+        ),
       ),
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MovieListViewDetails(
-                      movieName: movie.title,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieListViewDetails(
+              movie:movie,  // Pass the movie object
+            ),
+          ),
+        );
       },
     );
   }
@@ -99,62 +124,69 @@ class MovieListView extends StatelessWidget {
       width: 100,
       height: 100,
       decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-              image: NetworkImage(imageUrl), fit: BoxFit.cover)),
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: NetworkImage(imageUrl),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }
 
 class MovieListViewDetails extends StatelessWidget {
-  final String movieName;
+  final Movie movie; // Use the Movie object here
 
-  const MovieListViewDetails({Key? key, required this.movieName})
+  const MovieListViewDetails({Key? key, required this.movie})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Movies Details"),
-        centerTitle: true,
+        title: const Text("Movie Details"),
         backgroundColor: Colors.redAccent.shade400,
       ),
-    body: ListView(
-      children: [
-
-      ],
-    ),
+      body: ListView(
+        children: [
+          MovieDetailsThumbnail(thumbnail: movie.images[0]),
+        ],
+      ),
     );
   }
 }
+
 class MovieDetailsThumbnail extends StatelessWidget {
   final String thumbnail;
-  const MovieDetailsThumbnail({Key? key,  required this.thumbnail}) : super(key: key);
+  const MovieDetailsThumbnail({Key? key, required this.thumbnail})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
-      alignment: Alignment.bottomCenter,
+    return Stack(
+      alignment: Alignment.center,
       children: [
         Stack(
           alignment: Alignment.center,
           children: [
             Container(
-              height: 190,
-              width: 114,
+              height: 200,
+              width:MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                 image: NetworkImage(thumbnail),
+                  image: NetworkImage(thumbnail),
                   fit: BoxFit.cover,
-                )
-
+                ),
               ),
-
-            )
+            ),
           ],
         ),
-         const Icon(Icons.play_circle_filled_outlined, size: 100, color: Colors.white,)
+        const Icon(
+          Icons.play_circle_outline,
+          size: 100,
+          color: Colors.white,
+
+        ),
       ],
     );
   }
