@@ -451,9 +451,9 @@ class Movie {
   String rated;
   String released;
   String runtime;
+  String writer;
   String genre;
   String director;
-  String writer;
   String actors;
   String plot;
   String language;
@@ -467,7 +467,7 @@ class Movie {
   List <String> images;
 
   Movie(this.title, this.year, this.type, this.rated, this.released,
-      this.runtime, this.director, this.writer, this.actors, this.plot,
-      this.language, this.country, this.awards, this.poster, this.metaScore,
-      this.imdbRating, this.genre, this.response, this.images);
+      this.runtime, this.genre, this.writer, this.director, this.actors,
+      this.plot, this.language, this.awards, this.poster, this.metaScore,
+      this.imdbRating, this.country, this.response, this.images);
 }
